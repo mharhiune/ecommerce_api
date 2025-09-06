@@ -63,7 +63,7 @@ def register(user: RegisterUser):
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
 
-    users_collection.insert_one(user.dict())
+    users_collection.insert_one(user.model_dump())
     return {"message": "User registered successfully"}
 
 @app.post("/login")
@@ -100,7 +100,7 @@ def add_to_cart(item: CartItem):
             )
         else:
             # Insert new cart item
-            carts_collection.insert_one(item.dict())
+            carts_collection.insert_one(item.model_dump())
 
         return {"message": "Item added to cart"}
 
